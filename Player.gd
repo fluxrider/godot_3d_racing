@@ -1,6 +1,6 @@
 extends KinematicBody
 
-var speed = 1 # meters per seconds
+var speed = 2 # meters per seconds
 var turn_speed = 3 # angle per seconds (rad)
 var jump_power = 50 # meters per seconds, injected as dirac action
 var velocity = Vector3()
@@ -20,6 +20,7 @@ func _physics_process(delta):
 	# rotate
 	facing += (key_ri - key_le) * -turn_speed * delta
 
+	# rotate model
 	self.rotation.x = PI / 2
 	self.rotation.y = 0
 	self.rotation.z = -facing
