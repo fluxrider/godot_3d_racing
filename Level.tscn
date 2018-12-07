@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Platform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Barrel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Camera.gd" type="Script" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.0761717, 0.556116, -0.827607, -0.0509686, 0.831105, 0.553775, 0.995791, -3.70961e-09, 0.0916511, -19.766, 9.27691, 0 )
+light_energy = 0.7
+shadow_enabled = true
+
+[node name="Floor" parent="." instance=ExtResource( 1 )]
+transform = Transform( 15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0 )
+
+[node name="Barrel" parent="Floor" instance=ExtResource( 2 )]
+transform = Transform( 0.0666667, 0, 0, 0, 1, 0, 0, 0, 0.0666667, 0, 0, 0.265618 )
+
+[node name="Barrel2" parent="Floor" instance=ExtResource( 2 )]
+transform = Transform( 0.0666667, 0, 0, 0, 1, 0, 0, 0, 0.0666667, 0, 0, 0.411433 )
+
+[node name="Barrel3" parent="Floor" instance=ExtResource( 2 )]
+transform = Transform( 0.0666667, 0, 0, 0, 1, 0, 0, 0, 0.0666667, 0.142167, 0, 0.411433 )
+
+[node name="Barrel4" parent="Floor" instance=ExtResource( 2 )]
+transform = Transform( 0.0666667, 0, 0, 0, 1, 0, 0, 0, 0.0666667, 0.142167, 0, 0.268022 )
+
+[node name="Barrel5" parent="Floor" instance=ExtResource( 2 )]
+transform = Transform( 0.0666667, 0, 0, 0, 1, 0, 0, 0, 0.0666667, 0.133333, 2, 0.416667 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
+script = ExtResource( 3 )
+target = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+camera = NodePath("../Camera")
+
