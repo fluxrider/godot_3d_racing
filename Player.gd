@@ -7,6 +7,7 @@ var facing = 0 # bird eye view angle the kart's pedal accelerates towards
 var acceleration = Vector3()
 #var accel_cap = 20
 var accel_decay = 3
+var bounce_loss = .9
 
 export(NodePath) var camera
 
@@ -48,3 +49,10 @@ func _physics_process(delta):
 	#	acceleration = acceleration.normalized() * accel_cap
 	# friction (decay)
 	acceleration -= (acceleration * accel_decay * delta)
+
+	# collision
+	for i in self.get_slide_count():
+		var collision = self.get_slide_collision(i)
+		if collision.collider.name == "WallStaticBody":
+			# bounce off walls
+			acceleration = acceleration.bounce(collision.normal) * bounce_loss
