@@ -5,8 +5,8 @@ var turn_speed = 3 # angle per seconds (rad)
 var velocity = Vector3()
 var facing = 0 # bird eye view angle the kart's pedal accelerates towards
 var acceleration = Vector3()
-var accel_cap = 20
-var accel_decay = 4
+#var accel_cap = 20
+var accel_decay = 3
 
 export(NodePath) var camera
 
@@ -17,7 +17,9 @@ func _physics_process(delta):
 	var key_ri = Input.get_action_strength("move_right")
 
 	# rotate
-	facing += (key_ri - key_le) * -turn_speed * delta
+	var turning = (key_ri - key_le)
+	#if key_bw: turning = -turning # reverse control in reverse
+	facing += turning * -turn_speed * delta
 
 	# rotate model
 	self.rotation.x = PI / 2
@@ -27,6 +29,8 @@ func _physics_process(delta):
 	# acceleration
 	var d = Vector2()
 	d.x = key_fw - key_bw
+	# if turning, force a small acceleration
+	if abs(d.x) < .3 and turning != 0: d.x = .3
 	d.y = 0
 	d = d.rotated(-facing - PI/2)
 	acceleration.x += d.x
@@ -40,7 +44,7 @@ func _physics_process(delta):
 	velocity = self.move_and_slide(velocity, Vector3(0,1,0))
 
 	# friction (cap)
-	if acceleration.length() > accel_cap:
-		acceleration = acceleration.normalized() * accel_cap
+	#if acceleration.length() > accel_cap:
+	#	acceleration = acceleration.normalized() * accel_cap
 	# friction (decay)
 	acceleration -= (acceleration * accel_decay * delta)
