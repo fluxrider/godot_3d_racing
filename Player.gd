@@ -20,6 +20,10 @@ func _physics_process(delta):
 	# rotate
 	facing += (key_ri - key_le) * -turn_speed * delta
 
+	self.rotation.x = PI / 2
+	self.rotation.y = 0
+	self.rotation.z = -facing
+
 	# acceleration
 	var d = Vector2()
 	d.x = key_fw - key_bw

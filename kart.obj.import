@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/kart.obj-a8c71aea6f83c9fbcfac0b98adb19373.mesh"
+
+[deps]
+
+files=[ "res://.import/kart.obj-a8c71aea6f83c9fbcfac0b98adb19373.mesh" ]
+
+source_file="res://kart.obj"
+dest_files=[ "res://.import/kart.obj-a8c71aea6f83c9fbcfac0b98adb19373.mesh", "res://.import/kart.obj-a8c71aea6f83c9fbcfac0b98adb19373.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
