@@ -2,7 +2,6 @@ extends KinematicBody
 
 var speed = 2 # meters per seconds
 var turn_speed = 3 # angle per seconds (rad)
-var jump_power = 50 # meters per seconds, injected as dirac action
 var velocity = Vector3()
 var facing = 0 # bird eye view angle the kart's pedal accelerates towards
 var acceleration = Vector3()
@@ -45,7 +44,3 @@ func _physics_process(delta):
 		acceleration = acceleration.normalized() * accel_cap
 	# friction (decay)
 	acceleration -= (acceleration * accel_decay * delta)
-
-	# jump action (next frame)
-	if self.is_on_floor() and Input.is_action_just_pressed("ui_accept"):
-		velocity.y += jump_power

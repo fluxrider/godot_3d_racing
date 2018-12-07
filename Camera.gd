@@ -3,9 +3,10 @@ extends Camera
 var h_speed = 5 # angle per seconds (rad)
 var v_speed = 5 # angle per seconds (rad)
 var d_speed = 10 # meters per seconds
-var elevation = -PI/4 # angle (rad)
+var elevation = -PI/6 # angle (rad)
 var azymuth = 0 # angle (rad)
 var distance = 13.5 # meters
+var auto_azymuth_speed = 3 # angle per second
 
 # the target is typically the player node
 export(NodePath) var target
@@ -28,6 +29,8 @@ func _process(delta):
 	if key_dw != 0 and key_dw > v: v = key_dw
 	if key_up != 0 and -key_up < v: v = -key_up
 
+	var goal_azymuth = get_node(target).facing - PI/2
+	azymuth += (goal_azymuth - azymuth) * auto_azymuth_speed * delta
 
 	# move camera
 	elevation += v * v_speed * delta
