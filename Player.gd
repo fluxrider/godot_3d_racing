@@ -32,8 +32,15 @@ func _physics_process(delta):
 		d.x = 0
 	d.y = 0
 	d = d.rotated(-facing - PI/2)
+
+	# boost
+	if Input.is_action_just_pressed("ui_accept"):
+		d *= 50
+
 	acceleration.x += d.x
 	acceleration.z += d.y
+
+	# todo 3d acceleration (slopes)
 
 	# apply speed and gravity
 	velocity.x = acceleration.x * speed
