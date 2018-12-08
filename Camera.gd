@@ -4,7 +4,7 @@ var h_speed = 5 # angle per seconds (rad)
 var v_speed = 5 # angle per seconds (rad)
 var d_speed = 10 # meters per seconds
 var elevation = -PI/6 # angle (rad)
-var azymuth = 0 # angle (rad)
+var azymuth = -PI/2 # angle (rad)
 var distance = 13.5 # meters
 var auto_azymuth_speed = 3 # angle per second
 

@@ -32,6 +32,8 @@ func _physics_process(delta):
 	d.x = key_fw - key_bw
 	# if turning, force a small acceleration
 	if abs(d.x) < .3 and turning != 0: d.x = .3
+	# reverse driving is slower
+	if d.x < 0: d.x /= 2
 	d.y = 0
 	d = d.rotated(-facing - PI/2)
 	acceleration.x += d.x
