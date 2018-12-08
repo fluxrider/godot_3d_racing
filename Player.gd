@@ -61,11 +61,12 @@ func _physics_process(delta):
 	# rotate model
 	if floor_normals_n == 0:
 		self.rotation.x = 0
+		self.rotation.z = 0
 	else:
 		floor_normals /= floor_normals_n
-		self.rotation.x = acos(floor_normals.dot(Vector3(0,1,0))) # (slope)
+		d.x = acos(floor_normals.dot(Vector3(0,1,0))) # slope
+		d.y = 0
+		d = d.rotated(facing - PI/2)
+		self.rotation.x = d.x
+		self.rotation.z = d.y
 	self.rotation.y = facing
-	self.rotation.z = 0
-	# rotate model (slope)
-	#print(1 - floor_normal.dot(Vector3(0,1,0)))
-	#self.rotation = self.rotation.rotated(, deg2rad(30))
