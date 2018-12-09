@@ -8,6 +8,8 @@ var acceleration = Vector3()
 var accel_decay = 3
 var bounce_loss = .9
 
+var floor_normals = Vector3()
+
 export(NodePath) var camera
 
 func _physics_process(delta):
@@ -31,6 +33,8 @@ func _physics_process(delta):
 	if not self.is_on_floor():
 		d.x = 0
 	d.y = 0
+
+	# rotate acceleration direction (facing)
 	d = d.rotated(-facing - PI/2)
 
 	# boost
@@ -40,12 +44,12 @@ func _physics_process(delta):
 	acceleration.x += d.x
 	acceleration.z += d.y
 
-	# todo 3d acceleration (slopes)
+	# TODO rotate acceleration direction (slopes)
 
 	# apply speed and gravity
 	velocity.x = acceleration.x * speed
 	velocity.z = acceleration.z * speed
-	velocity.y += -9.8
+	velocity.y += -9.8 + acceleration.y * speed
 	# note: delta is applied magically inside move_and_slide, see doc.
 	velocity = self.move_and_slide(velocity, Vector3(0,1,0))
 
@@ -53,7 +57,7 @@ func _physics_process(delta):
 	acceleration -= (acceleration * accel_decay * delta)
 
 	# collision
-	var floor_normals = Vector3(0, 0 ,0)
+	floor_normals = Vector3(0, 0 ,0)
 	var floor_normals_n = 0
 	for i in self.get_slide_count():
 		var collision = self.get_slide_collision(i)
@@ -67,6 +71,7 @@ func _physics_process(delta):
 
 	# rotate model
 	if floor_normals_n == 0:
+		floor_normals = Vector3(0, 1, 0)
 		self.rotation.x = 0
 		self.rotation.z = 0
 	else:
