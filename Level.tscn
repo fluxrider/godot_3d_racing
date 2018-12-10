@@ -21,11 +21,9 @@ light_energy = 0.7
 shadow_enabled = true
 
 [node name="Floor" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
 transform = Transform( 45, 0, 0, 0, 1, 0, 0, 0, 70, 0, 0, 0 )
 
 [node name="Walls" type="Spatial" parent="Floor"]
-editor/display_folded = true
 transform = Transform( 0.0222222, 0, 0, 0, 1, 0, 0, 0, 0.0142857, 0, 0, 0 )
 
 [node name="Wall1" parent="Floor/Walls" instance=ExtResource( 2 )]
@@ -36,9 +34,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 70, -44.0317, 0, 0 )
 
 [node name="Wall3" parent="Floor/Walls" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 45, 0, 1, 0, -1, 0, -1.96701e-06, 0.164816, 0, 70.0958 )
-
-[node name="Wall4" parent="Floor/Walls" instance=ExtResource( 2 )]
-transform = Transform( -4.37114e-08, 0, 45, 0, 1, 0, -1, 0, -1.96701e-06, 0.164816, 0, -69.2109 )
 
 [node name="Wall5" parent="Floor/Walls" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 30, 0, 1, 0, -1, 0, -1.31134e-06, 0.164816, 0, -23.2173 )
@@ -154,4 +149,13 @@ script = ExtResource( 8 )
 
 [node name="Squeal" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 9 )
+
+[node name="Spatial" parent="." instance=ExtResource( 1 )]
+transform = Transform( 10, 0, 0, 0, 0.933515, 53.7807, 0, -0.358538, 140.027, 5.85794, -53.6248, -209.545 )
+
+[node name="Spatial2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 6.48048, -0.273063, 106.645, 0, 0.933515, 53.7807, -7.616, -0.23235, 90.7443, -118.244, -53.6248, -161.131 )
+
+[node name="Spatial3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.381792, -0.358277, 139.925, 0, 0.933515, 53.7807, -9.99271, -0.0136887, 5.34614, -172.464, -53.6248, -83.0814 )
 

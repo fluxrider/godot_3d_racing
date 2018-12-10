@@ -93,3 +93,5 @@ func _physics_process(delta):
 		turning_duration = 0
 	turning_duration += delta * turning
 	squealing = abs(turning_duration) > .4
+
+	print(velocity.length())
