@@ -17,19 +17,31 @@ func _ready():
 	self.stream = sample # set the sample as source
 
 func set_hz(hz):
+	# stop if hz is zero
+	if hz == 0:
+		if self.playing: self.stop()
+		current_n = 0
+		return
+
+	# get period (n)
 	var n = int((samples_per_second / hz) / 2)
 	if n == current_n: return
 	current_n = n
 
-	# generate data
+	gen_buffer(n)
+
+	# changing the buffer sometimes stops the player, so we need to kickstart it
+	if not self.playing:
+		self.play()
+
+func gen_buffer(n):
+	# square wave
 	var audio_buffer = PoolByteArray()
 	for i in range(0, n):
 		audio_buffer.append(127)
 	for i in range(0, n):
 		audio_buffer.append(-127)
 
+	# update player
 	sample.loop_end = n * 2
 	sample.data = audio_buffer
-	# changing the loop_end/data sometimes stops the player, so we need to kickstart it
-	if not self.playing:
-		self.play()
