@@ -62,7 +62,7 @@ func _physics_process(delta):
 	for i in self.get_slide_count():
 		var collision = self.get_slide_collision(i)
 		# bounce off walls
-		if collision.collider.name == "WallStaticBody":
+		if collision.normal.y < .2:
 			acceleration = acceleration.bounce(collision.normal) * bounce_loss
 		# rotate to floor
 		elif collision.normal.y > .5:
