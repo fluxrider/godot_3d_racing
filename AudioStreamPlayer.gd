@@ -1,6 +1,6 @@
 extends AudioStreamPlayer
 
-var hz = 44
+var hz = 6
 var j = 0 # counter
 var sample
 var samples_per_second
@@ -32,7 +32,6 @@ func GenerateAndPlay():
 	var audio_buffer = PoolByteArray()
 
 	for i in range(0, length): # for number of samples
-		#var sample = int(round(sin(float(j) / samples_per_second * hz * PI * 2.0)) * 16000 + 16000) # generate a square wave
 		var sample = int(round(sin(float(j) / samples_per_second * hz * PI * 2.0))) # generate a square wave
 		j += 1
 		# convert to signed byte
