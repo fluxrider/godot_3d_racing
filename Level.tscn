@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Platform.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Platform2.tscn" type="PackedScene" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Checkpoints.gd" type="Script" id=6]
 [ext_resource path="res://Lap_Time.gd" type="Script" id=7]
-[ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=8]
+[ext_resource path="res://Engine.gd" type="Script" id=8]
+[ext_resource path="res://Squeal.gd" type="Script" id=9]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -148,6 +149,9 @@ script = ExtResource( 7 )
 wait_time = 2.0
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Engine" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 8 )
+
+[node name="Squeal" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 9 )
 

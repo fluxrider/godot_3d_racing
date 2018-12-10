@@ -13,7 +13,7 @@ func _ready():
 	sample.loop_end = 0
 	sample.mix_rate = samples_per_second
 	sample.stereo = false
-	self.volume_db = -13.0 # don't blast your ears!
+	self.volume_db = -16.0 # don't blast your ears!
 	self.stream = sample # set the sample as source
 
 func set_hz(hz):
