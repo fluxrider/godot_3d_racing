@@ -84,4 +84,4 @@ func _physics_process(delta):
 	self.rotation.y = facing
 
 	# motor sound
-	get_parent().find_node("AudioStreamPlayer").hz = 6 + acceleration.length() * 3
+	#get_parent().find_node("AudioStreamPlayer").hz = 6 + acceleration.length() * 3

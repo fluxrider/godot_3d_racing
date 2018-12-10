@@ -4,7 +4,7 @@ var hz = 44
 var j = 0 # counter
 var sample
 var samples_per_second
-var sample_length_factor = .2 # the shorter the better, but must be long enough for wanted frequency
+var sample_length_factor = 1 # the shorter the better, but must be long enough for wanted frequency
 var length
 
 func _ready():
@@ -13,7 +13,7 @@ func _ready():
 	#samples_per_second = 11025
 	length = int(samples_per_second * sample_length_factor)
 	sample = AudioStreamSample.new()
-	sample.format = AudioStreamSample.FORMAT_16_BITS
+	sample.format = AudioStreamSample.FORMAT_8_BITS
 	sample.loop_mode = AudioStreamSample.LOOP_FORWARD
 	sample.loop_begin = 0
 	sample.loop_end = length
@@ -32,12 +32,11 @@ func GenerateAndPlay():
 	var audio_buffer = PoolByteArray()
 
 	for i in range(0, length): # for number of samples
-		var sample = int(round(sin(float(j) / samples_per_second * hz * PI * 2.0)) * 16000 + 16000) # generate a square wave
-		# convert short to bytes
-		var X = sample / 255
-		audio_buffer.append(sample - X - 128) # are godot bytes signed or unsigned?
-		audio_buffer.append(X - 128)
+		#var sample = int(round(sin(float(j) / samples_per_second * hz * PI * 2.0)) * 16000 + 16000) # generate a square wave
+		var sample = int(round(sin(float(j) / samples_per_second * hz * PI * 2.0))) # generate a square wave
 		j += 1
+		# convert to signed byte
+		audio_buffer.append(sample * 127)
 
 	# create sample from generated data
 	sample.data = audio_buffer
