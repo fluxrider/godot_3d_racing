@@ -15,12 +15,11 @@ func _ready():
 	sample.stereo = false
 	self.volume_db = -13.0 # don't blast your ears!
 	self.stream = sample # set the sample as source
-	self.play()
 
 func set_hz(hz):
 	var n = int((samples_per_second / hz) / 2)
 	if n == current_n: return
-	print(n)
+	current_n = n
 
 	# generate data
 	var audio_buffer = PoolByteArray()
@@ -31,4 +30,6 @@ func set_hz(hz):
 
 	sample.loop_end = n * 2
 	sample.data = audio_buffer
-	current_n = n
+	# changing the loop_end/data sometimes stops the player, so we need to kickstart it
+	if not self.playing:
+		self.play()
