@@ -1,5 +1,12 @@
 extends "ProceduralPlayer.gd"
 
+func _physics_process(delta):
+	var player = get_parent().find_node("Player")
+	if player.squealing:
+		self.set_hz(120 - player.acceleration.length() + OS.get_ticks_msec() % 10)
+	else:
+		self.set_hz(0)
+
 func gen_buffer(n):
 	# saw-thooth wave
 	var audio_buffer = PoolByteArray()

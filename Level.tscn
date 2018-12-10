@@ -7,7 +7,7 @@
 [ext_resource path="res://Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Checkpoints.gd" type="Script" id=6]
 [ext_resource path="res://Lap_Time.gd" type="Script" id=7]
-[ext_resource path="res://ProceduralPlayer.gd" type="Script" id=8]
+[ext_resource path="res://Engine.gd" type="Script" id=8]
 [ext_resource path="res://Squeal.gd" type="Script" id=9]
 
 [sub_resource type="BoxShape" id=1]

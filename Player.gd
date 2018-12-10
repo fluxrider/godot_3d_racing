@@ -11,6 +11,7 @@ var current_slope = 0
 
 var floor_normals = Vector3()
 var turning_duration = 0 # for squeal purposes
+var squealing = false
 
 export(NodePath) var camera
 
@@ -87,14 +88,8 @@ func _physics_process(delta):
 		self.rotation.z = d.y
 	self.rotation.y = facing
 
-	# engine sound
-	get_parent().find_node("Engine").set_hz(6 + acceleration.length() * 2)
-
 	# tire squeal
 	if not turning or acceleration.length() < 13 or sign(turning) != sign(turning_duration):
 		turning_duration = 0
 	turning_duration += delta * turning
-	if abs(turning_duration) > .4:
-		get_parent().find_node("Squeal").set_hz(120 - acceleration.length() + OS.get_ticks_msec() % 10)
-	else:
-		get_parent().find_node("Squeal").set_hz(0)
+	squealing = abs(turning_duration) > .4
