@@ -7,6 +7,7 @@ var facing = 0 # bird eye view angle the kart's pedal accelerates towards
 var acceleration = Vector3()
 var accel_decay = 3
 var bounce_loss = .9
+var current_slope = 0
 
 var floor_normals = Vector3()
 
@@ -76,7 +77,9 @@ func _physics_process(delta):
 		self.rotation.z = 0
 	else:
 		floor_normals /= floor_normals_n
-		d.x = acos(floor_normals.dot(Vector3(0,1,0))) # slope
+		# slope (smoothed)
+		d.x = current_slope + (acos(floor_normals.dot(Vector3(0,1,0))) - current_slope) * .1
+		current_slope = d.x
 		d.y = 0
 		d = d.rotated(facing - PI/2)
 		self.rotation.x = d.x
