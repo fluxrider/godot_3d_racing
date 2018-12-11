@@ -9,7 +9,7 @@ var accel_decay = 3
 var bounce_loss = .9
 var current_slope = 0
 
-var floor_normals = Vector3()
+var floor_normals = Vector3(0, 1, 0)
 var turning_duration = 0 # for squeal purposes
 var squealing = false
 
@@ -26,7 +26,7 @@ func _physics_process(delta):
 	facing += turning * -turn_speed * delta
 
 		# acceleration
-	var d = Vector2()
+	var d = Vector3()
 	d.x = key_fw - key_bw
 	# if turning, force a small acceleration
 	if abs(d.x) < .3 and turning != 0: d.x = .3
@@ -35,19 +35,23 @@ func _physics_process(delta):
 	# if not on floor, never mind acceleration
 	if not self.is_on_floor():
 		d.x = 0
+	d.z = 0
 	d.y = 0
 
+	# rotate acceleration direction (slopes) (I found this didn't work in practice [flying], and not doing it isn't that bad)
+	#var elevation = acos(floor_normals.dot(Vector3(0,1,0)))
+	#var theta = atan2(floor_normals.z, floor_normals.x)
+	#var factor = sin(theta + facing) # 1: climbing, -1: downhill
+	#d = d.rotated(Vector3(0,0,1), elevation * factor)
+
 	# rotate acceleration direction (facing)
-	d = d.rotated(-facing - PI/2)
+	d = d.rotated(Vector3(0,1,0), facing + PI/2)
 
 	# boost
 	if Input.is_action_just_pressed("ui_accept"):
 		d *= 50
 
-	acceleration.x += d.x
-	acceleration.z += d.y
-
-	# TODO rotate acceleration direction (slopes)
+	acceleration += d
 
 	# apply speed and gravity
 	velocity.x = acceleration.x * speed
@@ -80,12 +84,13 @@ func _physics_process(delta):
 	else:
 		floor_normals /= floor_normals_n
 		# slope (smoothed)
-		d.x = current_slope + (acos(floor_normals.dot(Vector3(0,1,0))) - current_slope) * .1
-		current_slope = d.x
-		d.y = 0
-		d = d.rotated(facing - PI/2)
-		self.rotation.x = d.x
-		self.rotation.z = d.y
+		var tmp = Vector2()
+		tmp.x = current_slope + (acos(floor_normals.dot(Vector3(0,1,0))) - current_slope) * .5
+		current_slope = tmp.x
+		tmp.y = 0
+		tmp = tmp.rotated(atan2(floor_normals.z, floor_normals.x) + facing - PI/2)
+		self.rotation.x = tmp.x
+		self.rotation.z = tmp.y
 	self.rotation.y = facing
 
 	# tire squeal
@@ -93,5 +98,3 @@ func _physics_process(delta):
 		turning_duration = 0
 	turning_duration += delta * turning
 	squealing = abs(turning_duration) > .4
-
-	print(velocity.length())
