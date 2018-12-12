@@ -70,7 +70,11 @@ func _physics_process(delta):
 		var collision = self.get_slide_collision(i)
 		# bounce off walls
 		if collision.normal.y < .2:
+			var before = acceleration
 			acceleration = acceleration.bounce(collision.normal) * bounce_loss
+			# play bounce sound, only if bounce is strong enough (arbitrary)
+			if (acceleration - before).length() > 3.5:
+				self.get_parent().find_node("HitWall").play()
 		# rotate to floor
 		elif collision.normal.y > .5:
 			floor_normals += collision.normal
